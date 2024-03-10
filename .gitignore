@@ -2,3 +2,4 @@
 *myenv
 .history
 *__pycache__
+.db.sq*
