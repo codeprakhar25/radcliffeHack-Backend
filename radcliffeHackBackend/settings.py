@@ -13,6 +13,14 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from datetime import timedelta
 from pathlib import Path
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=365),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=366),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+}
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,7 +34,6 @@ SECRET_KEY = 'django-insecure-)r_wty#lyl^_nww!epgb!x+uc_vyk!52$%4k4a@2@obo!btcfy
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -38,8 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'appname',
-    'account'
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -60,6 +68,7 @@ REST_FRAMEWORK = {
     ],
 }
 
+ALLOWED_HOSTS = ['*']
 
 TEMPLATES = [
     {
@@ -90,10 +99,8 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = 'account.CustomUser'
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=365),  # Set expiry for one year
-}
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
