@@ -45,3 +45,14 @@ class Test(models.Model):
 
     def __str__(self):
         return self.patient_name
+    
+    def save(self, *args, **kwargs):
+        is_new = self.pk is None
+
+        super().save(*args, **kwargs)
+
+        if is_new:
+            inventory = self.inventory
+            inventory.total_appointment += 1
+            inventory.pending_appointment += 1
+            inventory.save()

@@ -3,8 +3,7 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
-from rest_framework_simplejwt.tokens import RefreshToken
-from .serializers import UserSerializer, UserWithTokenSerializer
+from .serializers import UserRegisterSerializer, UserSerializer, UserWithTokenSerializer
 from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
@@ -12,8 +11,7 @@ User = get_user_model()
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
-    # permission_classes = (permissions.AllowAny)
+    serializer_class = UserRegisterSerializer
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -23,7 +21,7 @@ class RegisterView(generics.CreateAPIView):
         return Response(token_serializer.data, status=status.HTTP_201_CREATED)
 
 class LoginView(generics.GenericAPIView):
-    serializer_class = UserSerializer
+    serializer_class = UserRegisterSerializer
 
     def post(self, request, *args, **kwargs):
         email = request.data.get('email')
