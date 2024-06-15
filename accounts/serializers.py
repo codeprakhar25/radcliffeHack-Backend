@@ -7,7 +7,7 @@ User = get_user_model()
 class UserRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('email', 'password', 'name', 'city','role')
+        fields = ('email', 'password', 'name', 'city','role','contact_no')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -15,6 +15,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             email=validated_data['email'],
             password=validated_data['password'],
             name=validated_data['name'],
+            contact_no=validated_data['contact_no'],
             city=validated_data['city']
         )
         return user
@@ -24,7 +25,7 @@ class UserWithTokenSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('email', 'name', 'city', 'token','role')
+        fields = ('email', 'name', 'city', 'token','role','contact_no')
 
     def get_token(self, obj):
         refresh = RefreshToken.for_user(obj)
@@ -36,4 +37,4 @@ class UserWithTokenSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'email', 'name', 'city','role']
+        fields = ['id', 'email', 'name', 'city','role','contact_no']
