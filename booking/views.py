@@ -79,3 +79,19 @@ class AllTests(generics.ListAPIView):
 
     def get_queryset(self):
         return Test.objects.all().order_by('-created_at')
+    
+class InventoryRetrieveUpdateDestroyViewbyId(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = InventorySerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        return Inventory.objects.all()
+    
+class TestRetrieveUpdateDestroyViewbyId(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = TestSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        return Test.objects.all()
