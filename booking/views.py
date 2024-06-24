@@ -64,7 +64,7 @@ class InventoryTestListView(generics.ListAPIView):
 
     def get_queryset(self):
         inventory_uuid = self.kwargs['inventory_uuid']
-        return Test.objects.filter(inventory__uuid=inventory_uuid, user=self.request.user)
+        return Test.objects.filter(inventory__uuid=inventory_uuid)
 
 class AllInventory(generics.ListAPIView):
     serializer_class = InventorySerializer
